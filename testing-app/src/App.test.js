@@ -1,9 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import App from './App';
+import * as rtl from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
+import Dashboard from './components/Dashboard'
+import Display from './components/Display'
+import expectExport from 'expect';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+test ('renders without crashing', () => {
+  const wrapper = rtl.render(<App/>)
+  expect(wrapper).toBeVisible
 });
+
+test('renders dashboard component', () => {
+  const wrapper = rtl.render(<Dashboard/>)
+  const element = wrapper.getByText(/hit/i)
+  expect(element).toBeInTheDocument()
+})
